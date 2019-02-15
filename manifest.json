@@ -1,0 +1,33 @@
+{
+  "Actions": [
+    {
+      "Icon": "keyboard_maestro", 
+      "Name": "Keyboard Maestro Macro", 
+      "States": [
+        {
+          "Image": "keyboard_maestro",
+          "FontSize": "18", 
+          "FontStyle": "Bold", 
+          "TitleAlignment": "middle", 
+          "TitleColor": "#ffffff"
+        }
+      ], 
+      "Tooltip": "Execute Keyboard Maestro Macro", 
+      "UUID": "com.sturgeonfamily.keyboard_maestro.action"
+    }
+  ], 
+  "Author": "John Sturgeon", 
+  "CodePath": "main.py", 
+  "Description": "Execute a Keyboard Maestro Macro",
+  "PropertyInspectorPath": "index_pi.html",
+  "Name": "Keyboard Maestro Macro", 
+  "Icon": "keyboard_maestro", 
+  "URL": "https://www.elgato.com/gaming/stream-deck", 
+  "Version": "1.0",
+  "OS": [
+    {
+        "Platform": "mac", 
+        "MinimumVersion" : "10.11"
+    }
+  ]
+}
