@@ -8,7 +8,7 @@ from subprocess import Popen
 plugin_name = "keyboard_maestro"
 DEBUG = True
 
-plugin_dir = f"/Users/johnsturgeon/Code/streamdeck/Plugins/com.sturgeonfamily.{plugin_name}.sdPlugin"
+plugin_dir = f"/Users/johnsturgeon/Code/streamdeck/Plugins/com.sturgeon.{plugin_name}.sdPlugin"
 log_filename = f"/Users/johnsturgeon/Code/streamdeck/{plugin_name}.log"
 
 parser = argparse.ArgumentParser(description='Streamdeck Plugin')

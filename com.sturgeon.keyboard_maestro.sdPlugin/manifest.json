@@ -13,7 +13,7 @@
         }
       ], 
       "Tooltip": "Execute Keyboard Maestro Macro", 
-      "UUID": "com.sturgeonfamily.keyboard_maestro.action"
+      "UUID": "com.sturgeon.keyboard_maestro.action"
     }
   ], 
   "Author": "John Sturgeon", 
@@ -22,7 +22,7 @@
   "PropertyInspectorPath": "index_pi.html",
   "Name": "Keyboard Maestro Macro", 
   "Icon": "keyboard_maestro", 
-  "URL": "https://www.elgato.com/gaming/stream-deck", 
+  "URL": "https://www.keyboardmaestro.com/main/", 
   "Version": "1.0",
   "OS": [
     {
