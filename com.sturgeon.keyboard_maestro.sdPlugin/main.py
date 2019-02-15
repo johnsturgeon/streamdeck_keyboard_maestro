@@ -4,6 +4,7 @@ import argparse
 import websocket
 import json
 from subprocess import Popen
+from streamdeck_helpers import KMButtonInstance
 
 plugin_name = "keyboard_maestro"
 DEBUG = True
@@ -22,16 +23,16 @@ args = parser.parse_args()
 registration_dict = {'event': args.event, 'uuid': args.pluginUUID}
 pi_registration_dict = {'event': args.event, 'uuid': args.propertyInspectorUUID}
 
-macroUUID = ""
-instance_context = ""
-device_id = ""
+instances = {}
+
+t_log = open(log_filename, "w+")
+t_log.close()
 
 
 def log_debug(message):
     if DEBUG:
-        log_file = open(log_filename, "a+")
-        log_file.write(f"{message}\n")
-        log_file.close()
+        with open(log_filename, "a+") as log_file:
+            log_file.write(f"{message}\n")
 
 
 log_debug(args.port)
@@ -42,50 +43,57 @@ log_debug(args.propertyInspectorUUID)
 
 
 def on_message(ws, raw_message):
-    global macroUUID
-    global instance_context
-    global device_id
+    global instances
     message = json.loads(raw_message)
     log_debug("== got message" + raw_message)
     event = message['event']
     payload = message['payload']
+    context = message['context']
+    instance = None
+    log_debug("got this far")
 
     if (event == 'willAppear'):
-        log_debug("Got view will appear")
-        instance_context = message['context']
-        log_debug("saving context " + message['context'])
-        device_id = message['device']
-        log_debug("saving device_id " + message['device'])
-        settings = payload['settings']
-        if 'macroUUID' in settings:
-            log_debug("macro id is in settings, so saving that off")
-            macroUUID = settings['macroUUID']
+        try:
+            log_debug("Got will appear")
+            instance = KMButtonInstance(context)
+            instance.settings = payload['settings']
+            log_debug("Setting instance in dictionary")
+            instances.update({context: instance})
+        except Exception as e:
+            log_debug(f"Exception {e}")
+            
+    else:
+        log_debug(f"Getting instance from dictionary {instances}")
+        instance = instances[context]
 
+    log_debug("Event: " + event)
     if (event == 'keyUp'):
-        Popen(['osascript', '-e', 'tell application "Keyboard Maestro Engine" to do script "' + macroUUID + '"'])
+        Popen(['osascript', '-e', 'tell application "Keyboard Maestro Engine" to do script "' + instance.macroUUID + '"'])
 
     if (event == 'sendToPlugin'):
-        log_debug("setting settings")
-        log_debug("Payload is:")
+        log_debug("got 'sendToPlugin from javascript: Payload is:")
         log_debug(json.dumps(payload))
         if 'macroUUID' in payload:
             macroUUID = payload['macroUUID']
             save_settings_dict = {
                 "event": "setSettings",
-                "context": instance_context,
+                "context": context,
                 "payload": payload
             }
+            log_debug("setting settings")
             log_debug("Sending the following to the server")
             log_debug(json.dumps(save_settings_dict))
             ws.send(json.dumps(save_settings_dict))
+            log_debug("updating instance with macroUUID")
+            instance.macroUUID = macroUUID
 
         if 'property_inspector' in payload:
             log_debug("\n\nSending info to plugin!!!")
             send_to_pi_dict = {
                 "action": "com.elgato.example.action1",
                 "event": "sendToPropertyInspector",
-                "context": instance_context,
-                "payload": {"macroUUID": macroUUID}
+                "context": context,
+                "payload": {"macroUUID": instance.macroUUID}
             }
             log_debug(json.dumps(send_to_pi_dict))
             ws.send(json.dumps(send_to_pi_dict))
