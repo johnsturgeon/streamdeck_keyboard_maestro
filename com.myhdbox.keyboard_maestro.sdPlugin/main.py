@@ -55,7 +55,6 @@ def on_message(ws, raw_message):
     payload = message['payload']
     context = message['context']
     instance = None
-    log_debug("got this far")
 
     if (event == 'willAppear'):
         try:
@@ -71,9 +70,11 @@ def on_message(ws, raw_message):
         log_debug(f"Getting instance from dictionary {instances}")
         instance = instances[context]
 
-    log_debug("Event: " + event)
+    log_debug(f"== Event: {event}")
+    log_debug(f"== using Instance {instance}")
+    log_debug(f"== with Context: {context}")
     if (event == 'keyUp'):
-        Popen(['osascript', '-e', 'tell application "Keyboard Maestro Engine" to do script "' + instance.macroUUID + '"'])
+        Popen(['osascript', '-e', 'tell application "Keyboard Maestro Engine" to do script "' + instance.macroUUID() + '"'])
 
     if (event == 'sendToPlugin'):
         log_debug("got 'sendToPlugin from javascript: Payload is:")
@@ -90,15 +91,16 @@ def on_message(ws, raw_message):
             log_debug(json.dumps(save_settings_dict))
             ws.send(json.dumps(save_settings_dict))
             log_debug("updating instance with macroUUID")
-            instance.macroUUID = macroUUID
+            instance.settings = {'macroUUID': macroUUID}
 
         if 'property_inspector' in payload:
             log_debug("\n\nSending info to plugin!!!")
+            log_debug(f"sending using instance: {instance.macroUUID()}")
             send_to_pi_dict = {
                 "action": "com.elgato.example.action1",
                 "event": "sendToPropertyInspector",
                 "context": context,
-                "payload": {"macroUUID": instance.macroUUID}
+                "payload": {"macroUUID": instance.macroUUID()}
             }
             log_debug(json.dumps(send_to_pi_dict))
             ws.send(json.dumps(send_to_pi_dict))
