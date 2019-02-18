@@ -22,13 +22,13 @@ Tested on macOS 10.14.4
 
 ## Plugin Configuration Instructions
 
-1. Create a python3 virtual environment for your plugin(s)
+1. Create a python3 virtual environment for your plugin(s)  
 `python3 -m venv streamdeck_venv`
-2. Activate
+2. Activate  
 `source streamdeck_venv/bin/activate`
-3. Upgrade pip
+3. Upgrade pip  
 `pip install --upgrade pip`
-4. Install websocket-client
+4. Install websocket-client  
 `pip install websocket-client`
 5. Modify the first line of `main.py` to point to your virtual environment's python
 6. Look over the `manifest.json` file to make sure it's configured to your liking
