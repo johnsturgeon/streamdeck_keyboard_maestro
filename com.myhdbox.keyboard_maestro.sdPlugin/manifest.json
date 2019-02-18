@@ -13,7 +13,7 @@
         }
       ], 
       "Tooltip": "Execute Keyboard Maestro Macro", 
-      "UUID": "com.sturgeon.keyboard_maestro.action"
+      "UUID": "com.myhdbox.keyboard_maestro.action"
     }
   ], 
   "Author": "John Sturgeon", 
@@ -22,8 +22,8 @@
   "PropertyInspectorPath": "index_pi.html",
   "Name": "Keyboard Maestro Macro", 
   "Icon": "keyboard_maestro", 
-  "URL": "https://www.keyboardmaestro.com/main/", 
-  "Version": "1.0",
+  "URL": "https://myhdbox.com/", 
+  "Version": "1.1",
   "OS": [
     {
         "Platform": "mac", 

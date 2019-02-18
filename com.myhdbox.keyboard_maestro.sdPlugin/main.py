@@ -1,4 +1,4 @@
-#!/Users/johnsturgeon/Code/streamdeck/bin/python
+#!/Users/johnsturgeon/Code/streamdeck_venv/bin/python
 
 import argparse
 import websocket
@@ -7,8 +7,11 @@ from subprocess import Popen
 from streamdeck_helpers import KMButtonInstance
 
 plugin_name = "keyboard_maestro"
+
+# Optional: Change this value to 'False' to disable logging
 DEBUG = True
 
+# Change these values to values that match your Plugin location
 plugin_dir = f"/Users/johnsturgeon/Code/streamdeck/Plugins/com.sturgeon.{plugin_name}.sdPlugin"
 log_filename = f"/Users/johnsturgeon/Code/streamdeck/{plugin_name}.log"
 
@@ -25,8 +28,10 @@ pi_registration_dict = {'event': args.event, 'uuid': args.propertyInspectorUUID}
 
 instances = {}
 
-t_log = open(log_filename, "w+")
-t_log.close()
+# This will truncate the log file
+if DEBUG:
+    t_log = open(log_filename, "w+")
+    t_log.close()
 
 
 def log_debug(message):
@@ -61,7 +66,7 @@ def on_message(ws, raw_message):
             instances.update({context: instance})
         except Exception as e:
             log_debug(f"Exception {e}")
-            
+
     else:
         log_debug(f"Getting instance from dictionary {instances}")
         instance = instances[context]

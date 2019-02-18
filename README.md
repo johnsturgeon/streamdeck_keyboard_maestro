@@ -11,11 +11,26 @@ NOTE: feel free to create an issue if you have specific questions.  As always yo
 
 ```
 python 3.6+
-pip install websocket-client
-pip install websockets
+websocket-client
+Tested on macOS 10.14.4
 ```
 
-* Look over the manifest.json to make sure it's configured to your liking
-* Change the variables at the top of `main.py` to your plugin location
+## Plugin Installation Instructions
 
-I'm moving my TODO's to the Issues tracker
+1. Download the source (here)
+2. Copy or link the folder `com.myhdbox.keyboard_maestro.sdPlugin` to `~/Library/Application\ Support/com.elgato.StreamDeck/Plugins`
+
+## Plugin Configuration Instructions
+
+1. Create a python3 virtual environment for your plugin(s)
+`python3 -m venv streamdeck_venv`
+2. Activate
+`source streamdeck_venv/bin/activate`
+3. Upgrade pip
+`pip install --upgrade pip`
+4. Install websocket-client
+`pip install websocket-client`
+5. Modify the first line of `main.py` to point to your virtual environment's python
+6. Look over the `manifest.json` file to make sure it's configured to your liking
+7. Modify the two variables `plugin_dir` and `log_filename` towards the top of `main.py` to match your locations
+
