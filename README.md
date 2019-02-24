@@ -36,3 +36,6 @@ Tested on macOS 10.14.4
 7. Modify the two variables `plugin_dir` and `log_filename` towards the top of `main.py` to match your locations
 8. Restart the StreamDeck app
 
+### Notes:
+You may see an access control warning the first time you click on the button on your StreamDeck asking for permission to control Keyboard Maestro via AppleScripts.  Say 'OK'
+<img src="https://user-images.githubusercontent.com/9746310/53302740-64050f80-3816-11e9-8717-1bec1c15faee.png" width="532" height="306">
