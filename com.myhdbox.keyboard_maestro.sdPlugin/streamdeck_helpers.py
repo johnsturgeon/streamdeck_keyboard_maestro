@@ -4,4 +4,7 @@ class KMButtonInstance():
         self.settings = {}
 
     def macroUUID(self):
-        return self.settings['macroUUID']
+        if 'macroUUID' in self.settings:
+            return self.settings['macroUUID']
+        else:
+            return None
