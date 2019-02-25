@@ -17,8 +17,9 @@ Tested on macOS 10.14.4
 
 ## Plugin Installation Instructions
 
-1. Download the source (here)
-2. Copy or link the folder `com.myhdbox.keyboard_maestro.sdPlugin` to `~/Library/Application\ Support/com.elgato.StreamDeck/Plugins`
+1. Quit the StreamDeck app
+2. Download the source (here)
+3. Copy or link the folder `com.myhdbox.keyboard_maestro.sdPlugin` to `~/Library/Application\ Support/com.elgato.StreamDeck/Plugins`
 
 ## Plugin Configuration Instructions
 
@@ -33,6 +34,7 @@ Tested on macOS 10.14.4
 5. Modify the first line of `main.py` to point to your virtual environment's python
 6. Look over the `manifest.json` file to make sure it's configured to your liking
 7. Modify the two variables `plugin_dir` and `log_filename` towards the top of `main.py` to match your locations
+8. Restart the StreamDeck app
 
 ### Notes:
 You may see an access control warning the first time you click on the button on your StreamDeck asking for permission to control Keyboard Maestro via AppleScripts.  Say 'OK'
